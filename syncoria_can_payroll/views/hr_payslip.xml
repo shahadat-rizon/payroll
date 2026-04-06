@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_payslip_form_inherit" model="ir.ui.view">
+            <field name="name">syncoria_can_payroll.hr_payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <!--            <field name="priority" eval="8"/>-->
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_print_payslip']" position="after">
+                    <button invisible="state not in ['verify', 'done', 'paid']" string="Send by Email" name="action_payslip_email_send" type="object"/>
+                </xpath>
+                <xpath expr="//button[@name='action_payslip_cancel']" position="before">
+                    <button invisible="state not in ['draft','verify']" icon="fa-refresh" string="Refresh" name="action_payslip_refresh" type="object"/>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="paid_date"/>
+                </xpath>
+                <xpath expr="//field[@name='date_from']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">
+                        1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_to']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">
+                        1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='struct_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payslip_run_id']" position="after">
+                    <field name="pay_cycle" required="1"/>
+                    <field required="1" name="year" readonly="state in ['done', 'paid']"/>
+                    <field name="api_response_json" invisible="1"/>
+                    <field invisible="1" name="is_manual_input"/>
+                    <field domain="[('id','in',pay_cycle_period_ids_domain)]" options="{'no_open': True, 'no_create': True}" invisible="pay_cycle == False" name="pay_cycle_period" readonly="payslip_run_id != False or state in ['done', 'paid']" required="pay_cycle != False"/>
+                    <field invisible="1" name="pay_cycle_period_ids_domain"/>
+                </xpath>
+<!--                <xpath expr="//field[@name='move_id']" position="after">-->
+<!--                    <field name="api_response_json" force_save="1"/>-->
+<!--                </xpath>-->
+
+                <xpath expr="//field[@name='worked_days_line_ids']/list/field[@name='ytd']" position="attributes">
+                    <attribute name="column_invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="hr_payslip_list_inherit" model="ir.ui.view">
+            <field name="name">syncoria_can_payroll.hr_payslip.list</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='basic_wage']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath></field>
+        </record>
+    </data>
+</odoo>

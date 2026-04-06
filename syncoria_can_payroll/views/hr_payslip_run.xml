@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_payslip_run_form_inherit" model="ir.ui.view">
+            <field name="name">syncoria_can_payroll.hr_payslip_run.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+<!--                 <xpath expr="//button[@name='action_paid']" position="after">-->
+<!--                    <button invisible="state in ['close','paid']" icon="fa-refresh" string="Refresh" name="action_payslip_refresh" type="object"/>-->
+<!--                 </xpath>-->
+
+
+                <xpath expr="//field[@name='date_start']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">
+                        1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_end']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">
+                        1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='schedule_pay']" position="before">
+
+                        <field name="pay_cycle_year" required="1" readonly="state in ['close','paid']"/>
+                        <field name="pay_cycle" readonly="state in ['close','paid']"/>
+
+                        <field domain="[('id','in',pay_cycle_period_ids_domain)]" invisible="pay_cycle == False" name="pay_cycle_period" required="pay_cycle != False" readonly="state in ['close','paid']" force_save="1"/>
+                        <field invisible="1" name="pay_cycle_period_ids_domain"/>
+
+                </xpath>
+                <xpath expr="//field[@name='schedule_pay']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+<!--    <record id="hr_payslip_create_draft_form" model="ir.ui.view">-->
+<!--        <field name="name">hr.payslip.create.draft.form</field>-->
+<!--        <field name="model">hr.payslip.run</field>-->
+<!--        <field name="inherit_id" ref="hr_payroll_account.hr_payslip_run_view_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--&lt;!&ndash;            <xpath expr="//button[@name='action_validate']" position="replace">&ndash;&gt;-->
+<!--&lt;!&ndash;                <button name="action_draft_entry_wizard" type="object" string="Create Draft" invisible="state != 'verify'" class="oe_highlight" context="{'payslip_generate_pdf': True}" />&ndash;&gt;-->
+<!--&lt;!&ndash;             </xpath>&ndash;&gt;-->
+<!--        </field>-->
+<!--    </record>-->
+
+    </data>
+</odoo>

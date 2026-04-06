@@ -1,0 +1,93 @@
+<odoo>
+    <data>
+        <record id="t4_field_empt_incamt" model="hr.t4.field.mapping">
+            <field name="name">Employment Income Amount</field>
+            <field name="field_key">employee_empt_incamt</field>
+            <field name="description">T4 Box 14 - Employment Income Amount</field>
+        </record>
+
+        <record id="t4_field_cpp_cntrb" model="hr.t4.field.mapping">
+            <field name="name">CPP Contribution Amount</field>
+            <field name="field_key">employee_cpp_cntrb_amt</field>
+            <field name="description">T4 Box - Canada Pension Plan Contribution</field>
+        </record>
+
+        <record id="t4_field_qpp_cntrb" model="hr.t4.field.mapping">
+            <field name="name">QPP Contribution Amount</field>
+            <field name="field_key">employee_qpp_cntrb_amt</field>
+            <field name="description">T4 Box - Quebec Pension Plan Contribution</field>
+        </record>
+
+        <record id="t4_field_cppe_cntrb" model="hr.t4.field.mapping">
+            <field name="name">CPP Enhanced Contribution Amount</field>
+            <field name="field_key">employee_cppe_cntrb_amt</field>
+            <field name="description">T4 Box - CPP Enhanced Contribution</field>
+        </record>
+
+        <record id="t4_field_qppe_cntrb" model="hr.t4.field.mapping">
+            <field name="name">QPP Enhanced Contribution Amount</field>
+            <field name="field_key">employee_qppe_cntrb_amt</field>
+            <field name="description">T4 Box - QPP Enhanced Contribution</field>
+        </record>
+
+        <record id="t4_field_ei_insu" model="hr.t4.field.mapping">
+            <field name="name">EI Insurance Earnings Amount</field>
+            <field name="field_key">employee_ei_insu_ern_amt</field>
+            <field name="description">T4 Box - EI Insurance Earnings</field>
+        </record>
+
+        <record id="t4_field_empe_eip" model="hr.t4.field.mapping">
+            <field name="name">Employee EIP Amount</field>
+            <field name="field_key">employee_empe_eip_amt</field>
+            <field name="description">T4 Box - Employee EIP Amount</field>
+        </record>
+
+        <record id="t4_field_registered_rpp" model="hr.t4.field.mapping">
+            <field name="name">Registered RPP Contribution Amount</field>
+            <field name="field_key">registered_rpp_cntrb_amt</field>
+            <field name="description">T4 Box - Registered RPP Contribution</field>
+        </record>
+
+        <record id="t4_field_income_itx" model="hr.t4.field.mapping">
+            <field name="name">Income Tax Deduction Amount</field>
+            <field name="field_key">income_itx_ddct_amt</field>
+            <field name="description">T4 Box - Income Tax Deduction</field>
+        </record>
+
+        <record id="t4_field_canada_cpp" model="hr.t4.field.mapping">
+            <field name="name">Canada CPP/QPP Earnings Amount</field>
+            <field name="field_key">canada_cpp_qpp_ern_amt</field>
+            <field name="description">T4 Box - Canada CPP/QPP Earnings</field>
+        </record>
+
+        <record id="t4_field_union_dues" model="hr.t4.field.mapping">
+            <field name="name">Union Dues Amount</field>
+            <field name="field_key">union_unn_dues_amt</field>
+            <field name="description">T4 Box - Union/Professional Dues</field>
+        </record>
+
+        <record id="t4_field_charitable" model="hr.t4.field.mapping">
+            <field name="name">Charitable Donations Amount</field>
+            <field name="field_key">charitable_chrty_dons_amt</field>
+            <field name="description">T4 Box - Charitable Donations</field>
+        </record>
+
+        <record id="t4_field_pension" model="hr.t4.field.mapping">
+            <field name="name">Pension Adjustment Amount</field>
+            <field name="field_key">pension_padj_amt</field>
+            <field name="description">T4 Box - Pension Adjustment</field>
+        </record>
+
+        <record id="t4_field_ppip_prov" model="hr.t4.field.mapping">
+            <field name="name">PPIP Provincial Amount</field>
+            <field name="field_key">PPIP_prov_pip_amt</field>
+            <field name="description">T4 Box - PPIP Provincial Amount</field>
+        </record>
+
+        <record id="t4_field_ppip_insu" model="hr.t4.field.mapping">
+            <field name="name">PPIP Insurance Earnings Amount</field>
+            <field name="field_key">PPIP_prov_insu_ern_amt</field>
+            <field name="description">T4 Box - PPIP Insurance Earnings</field>
+        </record>
+    </data>
+</odoo>
