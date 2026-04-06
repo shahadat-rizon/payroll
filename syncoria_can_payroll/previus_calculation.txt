@@ -1,0 +1,126 @@
+---------------------- FED TAX -------------
+# wocredit= Fed tax without tax credit
+
+yearly = (contract.wage * 12) - (CPP * 12) - (EI * 12)
+if yearly < 50197:
+    wocredit = (yearly * 0.15)
+elif 50197 < yearly < 100392:
+    wocredit = (yearly * 0.205)
+elif 100392 < yearly < 155625:
+    wocredit = (yearly * 0.26)
+elif 155625 < yearly < 221708:
+    wocredit = (yearly * 0.29)
+elif 221708 < yearly:
+    wocredit = (yearly * 0.33)
+result = (wocredit - (contract.federal_amount_from_td1 * 0.15)) / 12
+
+--------------- PROV TX -----------------------
+# woc= Ontario Tax without credit
+
+yearly = (contract.wage * 12) - (CPP * 12) - (EI * 12)
+if yearly < 49231:
+    woc = (yearly * 0.0505)
+elif 46226 < yearly < 92454:
+    woc = (yearly * 0.0915)
+elif 92454 < yearly < 150000:
+    woc = (yearly * 0.1116)
+elif 150000 < yearly < 220000:
+    woc = (yearly * 0.1216)
+elif 220000 < yearly:
+    woc = (yearly * 0.1316)
+result = (woc - (contract.proviancial_amount_from_td1 * 0.15)) / 12
+============================================================================
+14 Aug, 2024
+Previous CPP calculation:
+
+is_pay_cycle = contract.salary_pay_cycle.pay_cycle
+if is_pay_cycle:
+    pay_cycle = int(is_pay_cycle)
+
+    main_gross = GROSS
+    irregular_gross = abs(categories['ADD_ALLOWANCE'])
+
+    yearly_gross = (main_gross * pay_cycle - contract.deductions.cpp_basic_exem) + irregular_gross
+
+    if yearly_gross < contract.deductions.cpp_max_con_earn:
+        final_result = (((main_gross * pay_cycle - contract.deductions.cpp_basic_exem) * (
+                    contract.deductions.cpp_emp_employ_rate / 100)) / pay_cycle) + (
+                               irregular_gross * (contract.deductions.cpp_emp_employ_rate / 100))
+
+    else:
+        final_result = (((contract.deductions.cpp_max_an_pen_earn - contract.deductions.cpp_basic_exem) * (
+                    contract.deductions.cpp_emp_employ_rate / 100)) / pay_cycle) + (
+                               irregular_gross * (contract.deductions.cpp_emp_employ_rate / 100))
+    if final_result < 0.0:
+        final_result = 0.0
+    result = final_result
+else:
+    result = 0.0
+
+
+ ====================================================================================================
+ 14 Aug, 2024
+ Employee EI calculation
+
+ is_pay_cycle = contract.salary_pay_cycle.pay_cycle
+if is_pay_cycle:
+    pay_cycle = int(is_pay_cycle)
+    main_gross = GROSS
+    irregular_gross = I_Earning
+
+    final_result =(((main_gross * pay_cycle) * (
+            contract.deductions.ei_rate / 100)) / pay_cycle) + (
+                                    irregular_gross * (contract.deductions.ei_rate / 100))
+    if final_result < 0.0:
+        final_result = 0.0
+    result = final_result
+else:
+    result = 0.0
+
+ ============================================================================================
+
+ ====================================================================================================
+ 14 Aug, 2024
+ Employer EI calculation
+
+is_pay_cycle = contract.salary_pay_cycle.pay_cycle
+if is_pay_cycle:
+    pay_cycle = int(is_pay_cycle)
+    main_gross = GROSS
+    irregular_gross = I_Earning
+
+    final_result = (((main_gross * pay_cycle) * (
+            contract.deductions.ei_employer_rate / 100)) / pay_cycle) + (
+                           irregular_gross * (contract.deductions.ei_employer_rate / 100))
+    if final_result < 0.0:
+        final_result = 0.0
+    result = final_result
+else:
+    result = 0.0
+===============================================================================
+Date on Removing : 22 Aug
+Fed TAX calculation
+
+is_pay_cycle = contract.salary_pay_cycle.pay_cycle
+if is_pay_cycle:
+    pay_cycle = int(is_pay_cycle)
+    claim_code = contract.federal_claim_code_from_td1
+    year =  contract.deductions.slab_year
+
+    paycycle_gross = GROSS-categories['PRE_TAX_DEDUCTION']
+    irregular_gross = categories['ADD_ALLOWANCE']
+
+    irr_gross_percycle = 0.0
+    if irregular_gross>0.0:
+        irr_gross_percycle = irregular_gross / pay_cycle
+        previous_irregular_payment=payslip.env['hr.payslip'].get_previous_irregular_payment(payslip.id,pay_cycle)
+
+        paycycle_gross = paycycle_gross + irr_gross_percycle + previous_irregular_payment
+    result = payslip.env['fed.tax'].get_tax_amount(paycycle_gross,claim_code,year,pay_cycle)
+else:
+    result= 0.0
+
+
+
+
+ ============================================================================================

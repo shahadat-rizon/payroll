@@ -1,0 +1,7 @@
+# Python bytecode
+*.pyc
+*.pyo
+__pycache__/
+
+# zip archive (source is now the extracted directory)
+syncoria_can_payroll.zip

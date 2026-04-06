@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_employee_form_sync_can_view" model="ir.ui.view">
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="identification_id" position="attributes">
+                    <attribute name="string">Employee Social Insurance Number (SIN)</attribute>
+                    <attribute name="required">1</attribute>
+                </field>
+                <field name="birthday" position="replace">
+                    <field name="birthday" required="1"/>
+                </field>
+                <xpath expr="//notebook" position="inside">
+                    <page name="sync_payroll_info" string="Payroll Information" groups="hr.group_hr_manager">
+                        <group></group>
+                        <field name="payroll_line_ids" nolabel="1">
+                            <list>
+                                <field name="year"/>
+                                <field name="ytd_cpp"/>
+                                <field name="ytd_cpp2"/>
+                                <field name="ytd_ei"/>
+                                <field name="ytd_ei_employer"/>
+                                <field name="ytd_pi"/>
+                                <field name="year_to_date_irregular_payment"/>
+                                <field name="ytd_fed_tax_erp"/>
+                                <field name="ytd_prov_tax_erp"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="year" readonly="1" force_save="1"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string='CPP' name="cpp">
+                                        <label for="ytd_cpp_erp" class="oe_inline"/>
+                                        <div class="o_row">
+                                            <field name="ytd_cpp_erp"/>
+                                            <button name="update_ytd_erp" type="object" title="Update ERP CPP"
+                                                    help="Update ERP CPP" context="{'type':'CPP'}" icon="fa-refresh"/>
+                                        </div>
+                                        <field name="ytd_previous_cpp"/>
+                                        <field name="ytd_cpp"/>
+                                    </group>
+
+                                    <group string='CPP2' name="cpp2">
+                                        <label for="ytd_cpp2_erp" class="oe_inline"/>
+                                        <div class="o_row">
+                                            <field name="ytd_cpp2_erp"/>
+                                            <button name="update_ytd_erp" type="object" title="Update ERP CPP2"
+                                                    help="Update ERP CPP2" context="{'type':'CPP2'}" icon="fa-refresh"/>
+                                        </div>
+                                        <field name="ytd_previous_cpp2"/>
+                                        <field name="ytd_cpp2"/>
+                                    </group>
+
+                                    <group string='EI' name="ei">
+                                        <label for="ytd_ei_erp" class="oe_inline"/>
+                                        <div class="o_row">
+                                            <field name="ytd_ei_erp"/>
+                                            <button name="update_ytd_erp" type="object" title="Update ERP EI"
+                                                    help="Update ERP EI" context="{'type':'EI'}" icon="fa-refresh"/>
+                                        </div>
+                                        <field name="ytd_previous_ei"/>
+                                        <field name="ytd_ei"/>
+                                    </group>
+
+                                    <group string='Employer EI ' name="ei">
+                                        <label for="ytd_ei_employer_erp" class="oe_inline"/>
+                                        <div class="o_row">
+                                            <field name="ytd_ei_employer_erp"/>
+                                            <button name="update_ytd_erp" type="object" title="Update ERP Employer EI"
+                                                    help="Update ERP Employer EI" context="{'type':'EI_EMPLOYER'}"
+                                                    icon="fa-refresh"/>
+                                        </div>
+                                        <field name="ytd_previous_ei_employer"/>
+                                        <field name="ytd_ei_employer"/>
+                                    </group>
+
+                                    <group string='PI/IE' name="pi">
+                                        <label for="ytd_pi_erp" class="oe_inline"/>
+                                        <div class="o_row">
+                                            <field name="ytd_pi_erp"/>
+                                            <button name="update_ytd_erp" type="object" title="Update ERP YTDPI"
+                                                    help="Update ERP YTDPI" context="{'type':'PI'}" icon="fa-refresh"/>
+                                        </div>
+                                        <field name="ytd_previous_pi"/>
+                                        <field name="ytd_pi"/>
+                                    </group>
+
+                                    <group string='YTD Irregular Amount' name="irre">
+                                        <label for="ytd_previous_irre_payment" class="oe_inline"/>
+                                        <div class="o_row">
+                                            <field name="ytd_previous_irre_payment"/>
+                                            <button name="update_ytd_irregular_payments_tax" context="{'type':'PI'}"
+                                                    type="object" title="Update ERP YTD Irr Tax"
+                                                    help="Update ERP YTD Irr Tax" icon="fa-refresh"/>
+                                        </div>
+                                        <field name="ytd_previous_irre_payment_erp"/>
+                                        <field name="year_to_date_irregular_payment"/>
+                                    </group>
+                                    <group string='YTD Tax Amount'>
+
+
+                                        <label for="ytd_previous_fed_tax" class="oe_inline"/>
+                                        <div class="o_row">
+                                            <field name="ytd_previous_fed_tax"/>
+                                            <button name="update_ytd_tax" type="object"
+                                                    help="Update ERP YTD Tax" title="Update ERP YTD Tax"
+                                                    icon="fa-refresh"/>
+                                        </div>
+                                        <field name="ytd_fed_tax_erp" readonly="1"/>
+                                        <field name="ytd_fed_tax"/>
+
+                                        <field name="ytd_previous_prov_tax"/>
+                                        <field name="ytd_prov_tax_erp" readonly="1"/>
+                                        <field name="ytd_prov_tax"/>
+
+
+                                    </group>
+
+                                    <group string='RRSP CONTRIBUTION'>
+                                        <label for="year_to_date_employee_rrsp" class="oe_inline"/>
+                                        <div class="o_row">
+                                            <field name="year_to_date_employee_rrsp"/>
+                                            <button name="update_ytd_erp" type="object" context="{'type':'RRSP'}"
+                                                    help="Update ERP YTD Tax" title="Update ERP YTD Tax"
+                                                    icon="fa-refresh"/>
+                                        </div>
+                                        <field name="ytd_employee_rrsp_erp" readonly="1"/>
+                                        <field name="ytd_previous_employee_rrsp"/>
+
+                                        <field name="year_to_date_employer_rrsp"/>
+                                        <field name="ytd_employer_rrsp_erp" readonly="1"/>
+                                        <field name="ytd_previous_employer_rrsp"/>
+
+
+                                    </group>
+                                </group>
+                                <!--                                        <group>-->
+                                <!--                                        <button name="update_ytd_erp" type="object"-->
+                                <!--                                                    help="Update ERP YTDPI" context="{'type':'PI'}" title="Update ERP YTDPI" icon="fa-refresh"/>-->
+                                <!--                                            </group>-->
+                                <!--                                            <group string='YTD Irregular Amount' name="irre">-->
+                                <!--                                                   <group>-->
+                                <!--                                                       <field name="ytd_previous_irre_payment"/>-->
+                                <!--                                                       <field name="ytd_previous_irre_payment_erp"/>-->
+                                <!--                                                       <field name="year_to_date_irregular_payment"/>-->
+                                <!--                                                   </group>-->
+                                <!--                                                <group>-->
+                                <!--        &lt;!&ndash;                                            <field name="last_paycycle_gross"/>&ndash;&gt;-->
+                                <!--                                                </group>-->
+                                <!--                                            </group>-->
+
+                                <!--                                         <footer>-->
+                                <!--                                            <button string="Save" name="save_data" type="object" class="btn-primary"/>-->
+                                <!--                                            <button string="Discard" class="btn-secondary" special="cancel"/>-->
+                                <!--                                        </footer>-->
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+
+                <xpath expr="//group[@name='managers']" position="after">
+                    <group name="payroll_settings" string="Payroll">
+                        <field name="territory_of_employment"/>
+                        <field name="is_portal_user"/>
+                        <field name="portal_user_id" invisible="not is_portal_user"/>
+                        <field name="is_vacation_pay_carry_over"/>
+
+                        <field name="is_cpp_exempt"/>
+                        <field name="is_ei_exempt"/>
+                    </group>
+
+                </xpath>
+                <xpath expr="//group[@name='identification_group']" position="after">
+                    <group string="T4 Information">
+                        <field name="employee_cpp_qpp_xmpt_cd"/>
+                        <field name="employee_ei_xmpt_cd"/>
+                        <field name="empr_dntl_ben_rpt_cd"/>
+                        <field name="employee_empt_cd"/>
+                        <field name="employee_prov_pip_xmpt_cd"/>
+
+                    </group>
+                </xpath>
+
+                <xpath expr="//field[@name='structure_type_id']" position="after">
+                    <field name="salary_pay_cycle"/>
+                </xpath>
+                <xpath expr="//field[@name='wage_type']" position="after">
+
+                    <field invisible="wage_type == 'hourly'" name="paycycle_wage"/>
+                    <field invisible="wage_type == 'hourly'" name="is_fixed"/>
+                    <field invisible="1" name="is_hourly"/>
+                    <!--                    <field invisible="wage_type != 'hourly'" name="hourly_wage"/>-->
+                </xpath>
+                <xpath expr="//group[@name='contract']" position="after">
+                    <group name="remuneration_info" string="Remuneration Information">
+                        <field name="federal_amount_from_td1"/>
+                        <field name="federal_claim_code_from_td1"/>
+                        <field name="proviancial_amount_from_td1"/>
+                        <field name="provincial_claim_code_from_td1"/>
+<!--                        <field name="deductions" required="1"/>-->
+                    </group>
+                    <group name="deductions" string="Deductions">
+
+                        <group>
+                            <field name="garnishment" widget="boolean_toggle"/>
+                            <label for="wage_garnishment" invisible="garnishment != True"/>
+                            <div class="o_row" invisible="garnishment != True">
+                                <field name="wage_garnishment"/>
+                                <field name="wage_garnishment_type"/>
+                            </div>
+                            <label for="bank_garnishment" invisible="garnishment != True"/>
+                            <div class="o_row" invisible="garnishment != True">
+                                <field name="bank_garnishment"/>
+                                <field name="bank_garnishment_type"/>
+                            </div>
+                            <label for="alimony_garnishment" invisible="garnishment != True"/>
+                            <div class="o_row" invisible="garnishment != True">
+                                <field name="alimony_garnishment"/>
+                                <field name="alimony_garnishment_type"/>
+                            </div>
+                            <label for="child_support_garnishment" invisible="garnishment != True"/>
+                            <div class="o_row" invisible="garnishment != True">
+                                <field name="child_support_garnishment"/>
+                                <field name="child_support_garnishment_type"/>
+                            </div>
+                        </group>
+                    </group>
+                    <!--                    <group>-->
+                    <!--                        <field name="benefit_plans" widget="boolean_toggle"/>-->
+                    <!--                    </group>-->
+                    <!--                    <group invisible="benefit_plans != True">-->
+
+                    <group name="life_insurance" string="Life Insurance">
+                        <label for="life_insurance"/>
+                        <div class="o_row">
+                            <field name="life_insurance"/>
+                            <field name="life_insurance_type"/>
+                        </div>
+                        <label for="life_insurance_employer"/>
+                        <div class="o_row">
+                            <field name="life_insurance_employer"/>
+                            <field name="life_insurance_employer_type"/>
+                        </div>
+                    </group>
+                    <group name="medical_insurance" string="Medical Insurance">
+                        <label for="medical_insurance"/>
+                        <div class="o_row">
+                            <field name="medical_insurance"/>
+                            <field name="medical_insurance_type"/>
+                        </div>
+                        <label for="medical_insurance_employer"/>
+                        <div class="o_row">
+                            <field name="medical_insurance_employer"/>
+                            <field name="medical_insurance_employer_type"/>
+                        </div>
+                    </group>
+
+                    <!--                    </group>-->
+
+                </xpath>
+                <!--                <xpath expr="//div[@name='wage']" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+                <!--                </xpath>-->
+                <!--               <xpath expr="//field[@name='schedule_pay']" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+                <!--                </xpath>-->
+            </field>
+        </record>
+
+        <record id="view_employee_form_payroll" model="ir.ui.view">
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_payroll.payroll_hr_employee_view_form"/>
+            <field name="arch" type="xml">
+                <field name="registration_number" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="registration_number" position="after">
+                    <field name="payroll_account_number" string="Payroll Account Number" readonly="1"/>
+                    <field name="employee_prpp_dpsp_rgst_nbr"/>
+                </field>
+            </field>
+        </record>
+
+        <!--   Action for batch generate T4     -->
+        <record id="action_T4_batch_gen" model="ir.actions.server">
+            <field name="name">Batch Generate T4</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="binding_model_id" ref="hr.model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.action_statement_remuneration_wizard()
+            </field>
+        </record>
+
+        <record id="action_update_batch_payroll_info" model="ir.actions.server">
+            <field name="name">Batch Update Payroll Info</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="binding_model_id" ref="hr.model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.action_update_batch_payroll_info()
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_salary_rule_form_inherit_t4" model="ir.ui.view">
+            <field name="name">hr.salary.rule.form.inherit.t4</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='struct_id']" position="after">
+                    <field name="t4_field_mapping_ids" widget="many2many_tags" placeholder="Search and select T4 fields..." colspan="2"/>
+                    <field name="t4_other_info_code_ids" widget="many2many_tags" placeholder="Search and select T4 Other Info (Box–Case) fields..." colspan="2"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
